@@ -24,7 +24,7 @@ if ! systemctl status mysql; then
   systemctl status mysql
 fi
 
-if mysqladmin --no-defaults --port=3306 --socket=/var/run/mysqld/mysqld.sock --host=127.0.0.1 --user=root password "{{ galera_root_password }}"; then
+if mysqladmin --no-defaults --port=3306 --socket=/var/run/mysqld/mysqld.sock --host={{ galera_bind_address | default('127.0.0.1') }} --user=root password "{{ galera_root_password }}"; then
   mysql -u root -h localhost -e "UPDATE mysql.user SET Password=PASSWORD('$rootpass') WHERE User='root';"
   mysql -u root -h localhost -e "DELETE FROM mysql.user WHERE user='';"
   mysql -u root -h localhost -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('%', 'localhost', '127.0.0.1', '::1');"

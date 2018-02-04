@@ -29,7 +29,7 @@ collation-server = utf8_general_ci
 init-connect = 'SET NAMES utf8'
 character-set-server = utf8
 datadir = /var/lib/mysql
-bind-address = ::
+bind-address = {{ galera_bind_address | default('::') }}
 {% if galera_server_id is defined %}
 server-id = {{ galera_server_id }}
 {% endif %}
