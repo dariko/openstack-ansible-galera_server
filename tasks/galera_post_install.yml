@@ -39,8 +39,9 @@
     - Restart all mysql
 
 - name: Reload systemd service files
-  systemd:
-    daemon_reload: yes
+  #systemd:
+  #  daemon_reload: yes
+  shell: systemctl daemon-reload
 
 # NOTE(cloudnull): The secure task is not needed on Debian based systems
 #                  as all of these tasks will be run on Package install
